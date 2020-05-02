@@ -7,8 +7,8 @@ namespace StudentTracker
     {
         static void Main(string[] args)
         {
-            Dictionary<String, int> studentGradebook = CreateStudentDictionary();
-            PrintStudentDictionary(studentGradebook);
+            Dictionary<String, int> studentGrades = CreateStudentDictionary();
+            PrintStudentDictionary(studentGrades);
         }
 
         static Dictionary<String, int> CreateStudentDictionary()
