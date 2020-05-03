@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StudentTracker
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
@@ -13,11 +13,13 @@ namespace StudentTracker
 
         static Dictionary<String, int> CreateStudentDictionary()
         {
+            var student = new Student();
+
             Dictionary<String, int> nameAndGrade = new Dictionary<string, int>();
             Console.WriteLine("How many students are there?");
             int numberOfStudents = 0;
             numberOfStudents = int.Parse(Console.ReadLine());
-            for(int i = 0; i < numberOfStudents; i++) { 
+            for (int i = 0; i < numberOfStudents; i++) {
                 Console.Write("Please enter the name of student: ");
                 string name = Console.ReadLine();
                 // validate input
@@ -51,5 +53,14 @@ namespace StudentTracker
             }
         }
 
+
+
+    }
+    class Student {
+        public string Name;
+        public int Grade;
+        public string Birthday;
+        public string Address;
+        public int Phone;
     }
 }
