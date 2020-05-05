@@ -7,52 +7,90 @@ namespace StudentTracker
     {
         static void Main(string[] args)
         {
+            
             var students = new List<Student>();
 
             var adding = true;
             while (adding)
             {
-                var newStudent = new Student();
+                try
+                {
+                    var newStudent = new Student();
 
-                Console.Write("Student name: ");
-                newStudent.Name = Console.ReadLine();
-                
-                Console.Write("{0}'s grade: ", newStudent.Name);
-                newStudent.Grade = int.Parse(Console.ReadLine());
+                    newStudent.Name = util.Console.Ask("Student name: ");
 
-                Console.Write("{0}'s Birthday: ", newStudent.Name);
-                newStudent.Birthday = Console.ReadLine();
+                    newStudent.Grade = util.Console.AskInt(newStudent.Name + "'s Grade: ");
 
-                Console.Write("{0}'s Address: ", newStudent.Name);
-                newStudent.Address = Console.ReadLine();
+                    newStudent.Birthday = util.Console.Ask(newStudent.Name + "'s Birthday: ");
 
-                Console.Write("{0}'s Phone Number: ", newStudent.Name);
-                newStudent.Phone = int.Parse(Console.ReadLine()); 
+                    newStudent.Address = util.Console.Ask(newStudent.Name + "'s Address: ");
 
-                students.Add(newStudent);
-                Console.Write("Add another? y/n ");
-                if (Console.ReadLine() != "y")
-                    adding = false;
+                    newStudent.Phone = util.Console.AskInt(newStudent.Name + "'s Phone Number: ");
+
+                    students.Add(newStudent);
+                    Student.Count++;
+
+                    Console.WriteLine("Student Count:  {0}", Student.Count);
+
+                    Console.Write("Add another? y/n ");
+
+                    if (Console.ReadLine() != "y") {
+                        adding = false;
+                    }
+                }
+
+                catch (FormatException msg)
+                {
+                    Console.WriteLine(msg.Message);
+                }
+
+                catch (Exception)
+                {
+                    Console.WriteLine("Error adding student, please try again");
+                }
+
             }
-
             foreach (var student in students)
             {
-                Console.WriteLine("Name: {0}     | Grade: {1}", student.Name, student.Grade);
+                Console.WriteLine("Name: {0}     | Grade: {1}", student.Name, student.Grade);       
             }
         }
     }
 
-    class Student {
+    class Member
+    {
         public string Name;
-        public int Grade;
-        public string Birthday;
         public string Address;
-        private int phone;
-
-        public int Phone { 
+        protected int phone;
+        public int Phone
+        {
             set { phone = value; }
         }
 
+    }
 
+    class Student : Member {
+        public static int Count = 0;
+        public int Grade;
+        public string Birthday;
+
+        public Student()
+        {
+
+        }
+
+        public Student(string name, int grade, string birthday, string address, int phone)
+        {
+            Name = name;
+            Grade = grade;
+            Birthday = birthday;
+            Address = address;
+            Phone = phone;
+        }
+    }
+
+    class Teacher : Member
+    { 
+        public string Subject;
     }
 }
