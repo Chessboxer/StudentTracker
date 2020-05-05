@@ -7,60 +7,52 @@ namespace StudentTracker
     {
         static void Main(string[] args)
         {
-            Dictionary<String, int> studentGrades = CreateStudentDictionary();
-            PrintStudentDictionary(studentGrades);
-        }
+            var students = new List<Student>();
 
-        static Dictionary<String, int> CreateStudentDictionary()
-        {
-            var student = new Student();
-
-            Dictionary<String, int> nameAndGrade = new Dictionary<string, int>();
-            Console.WriteLine("How many students are there?");
-            int numberOfStudents = 0;
-            numberOfStudents = int.Parse(Console.ReadLine());
-            for (int i = 0; i < numberOfStudents; i++) {
-                Console.Write("Please enter the name of student: ");
-                string name = Console.ReadLine();
-                // validate input
-                Console.Write("Please {0}'s grade: ", name);
-                int grade = int.Parse(Console.ReadLine());
-                // validate input
-                nameAndGrade.Add(name, grade);
-            }
-            return nameAndGrade;
-        }
-
-        bool ValidateAsInt()
-        {
-
-            return false;
-        }
-
-        static void PrintStudentDictionary(Dictionary<string, int> StudentDictionary)
-        {
-            foreach (var student in StudentDictionary)
+            var adding = true;
+            while (adding)
             {
-                Console.WriteLine("Name: {0}          Grade: {1}", student.Key, student.Value);
-            }
-        }
+                var newStudent = new Student();
 
-        void HardCodeList() {
-            var studentGrades = new int[] { 80, 77, 45, 88, 91, 50, 66, 90, 103, 29 };
-            foreach (var studentGrade in studentGrades)
+                Console.Write("Student name: ");
+                newStudent.Name = Console.ReadLine();
+                
+                Console.Write("{0}'s grade: ", newStudent.Name);
+                newStudent.Grade = int.Parse(Console.ReadLine());
+
+                Console.Write("{0}'s Birthday: ", newStudent.Name);
+                newStudent.Birthday = Console.ReadLine();
+
+                Console.Write("{0}'s Address: ", newStudent.Name);
+                newStudent.Address = Console.ReadLine();
+
+                Console.Write("{0}'s Phone Number: ", newStudent.Name);
+                newStudent.Phone = int.Parse(Console.ReadLine()); 
+
+                students.Add(newStudent);
+                Console.Write("Add another? y/n ");
+                if (Console.ReadLine() != "y")
+                    adding = false;
+            }
+
+            foreach (var student in students)
             {
-                Console.WriteLine(studentGrade);
+                Console.WriteLine("Name: {0}     | Grade: {1}", student.Name, student.Grade);
             }
         }
-
-
-
     }
+
     class Student {
         public string Name;
         public int Grade;
         public string Birthday;
         public string Address;
-        public int Phone;
+        private int phone;
+
+        public int Phone { 
+            set { phone = value; }
+        }
+
+
     }
 }
