@@ -3,9 +3,18 @@ using System.Collections.Generic;
 
 namespace StudentTracker
 {
+    enum School
+    {
+        Hogwarts,
+        Harvard,
+        MIT
+
+    }
     class Program 
     {
         static List<Student> Students = new List<Student>();
+        
+
         static void Main(string[] args)
         { 
             var adding = true;
@@ -19,7 +28,7 @@ namespace StudentTracker
 
                     newStudent.Grade = util.Console.AskInt(newStudent.Name + "'s Grade: ");
 
-                    newStudent.School = util.Console.AskInt("Enter school corresponding school: \n 0 - Hogwarts \n 1 - Harvard \n 2 - MIT \n");
+                    newStudent.School = (School) util.Console.AskInt("Enter school corresponding school: \n 0 - Hogwarts \n 1 - Harvard \n 2 - MIT \n");
 
                     newStudent.Birthday = util.Console.Ask(newStudent.Name + "'s Birthday: ");
 
@@ -50,27 +59,28 @@ namespace StudentTracker
                 }
 
             }
-            foreach (var student in students)
+            Exports();
+            foreach (var student in Students)
             {
                 Console.WriteLine("Name: {0}     | Grade: {1}", student.Name, student.Grade);       
             }
         }
 
-        public void Exports()
+        public static void Exports()
         {
             foreach (var student in Students)
             {
                 switch (student.School)
                 {
-                    case 0:
+                    case School.Hogwarts:
                         Console.WriteLine("Exporting to Hogwarts");
                         break;
-                    case 1:
-                        Console.WriteLine("Exporting to MIT");
-                        break;
-                    case 2:
+                    case School.Harvard:
                         Console.WriteLine("Exporting to Harvard");
                         break;
+                    case School.MIT:
+                        Console.WriteLine("Exporting to MIT");
+                        break;  
                     default:
                         break;
                 }
@@ -93,7 +103,7 @@ namespace StudentTracker
     class Student : Member {
         public static int Count = 0;
         public int Grade;
-        public int School;
+        public School School;
         public string Birthday;
 
 
@@ -106,7 +116,7 @@ namespace StudentTracker
         {
             Name = name;
             Grade = grade;
-            Birthday = birthday;
+            Birthday = birthday; 
             Address = address;
             Phone = phone;
         }
