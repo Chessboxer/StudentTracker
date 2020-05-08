@@ -16,7 +16,10 @@ namespace StudentTracker
         
 
         static void Main(string[] args)
-        { 
+        {
+            Payroll payroll = new Payroll();
+            payroll.PayAll();
+
             var adding = true;
             while (adding)
             {
@@ -40,6 +43,7 @@ namespace StudentTracker
                     Student.Count++;
 
                     Console.WriteLine("Student Count:  {0}", Student.Count);
+                    
 
                     Console.Write("Add another? y/n ");
 
@@ -57,6 +61,8 @@ namespace StudentTracker
                 {
                     Console.WriteLine("Error adding student, please try again");
                 }
+                
+                ShowGrade("Tom");
 
             }
             Exports();
@@ -86,25 +92,29 @@ namespace StudentTracker
                 }
             }
         }
+
+        static void ShowGrade(String name)
+        {
+            var found = Students.Find(student => student.Name == name);
+            Console.WriteLine("{0}'s Grade: {1}", found.Name, found.Grade);
+        }
+
+ 
     }
 
     class Member
     {
-        public string Name;
-        public string Address;
-        protected int phone;
-        public int Phone
-        {
-            set { phone = value; }
-        }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int Phone { get; set; }
 
     }
 
     class Student : Member {
-        public static int Count = 0;
-        public int Grade;
-        public School School;
-        public string Birthday;
+        public static int Count { get; set; } = 0;
+        public int Grade { get; set; }
+        public School School { get; set; }
+        public string Birthday { get; set; }
 
 
         public Student()
@@ -118,12 +128,8 @@ namespace StudentTracker
             Grade = grade;
             Birthday = birthday; 
             Address = address;
-            Phone = phone;
+            Phone = phone; 
         }
     }
 
-    class Teacher : Member
-    { 
-        public string Subject;
-    }
 }
